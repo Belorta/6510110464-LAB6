@@ -1,34 +1,29 @@
-import logging
-import logging.handlers
-import os
+# Simple pygame program
 
-import requests
+# Import and initialize the pygame library
+import pygame
+pygame.init()
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-logger_file_handler = logging.handlers.RotatingFileHandler(
-    "status.log",
-    maxBytes=1024 * 1024,
-    backupCount=1,
-    encoding="utf8",
-)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger_file_handler.setFormatter(formatter)
-logger.addHandler(logger_file_handler)
+# Set up the drawing window
+screen = pygame.display.set_mode([500, 500])
 
-try:
-    SOME_SECRET = os.environ["SOME_SECRET"]
-except KeyError:
-    SOME_SECRET = "Token not available!"
-    #logger.info("Token not available!")
-    #raise
+# Run until the user asks to quit
+running = True
+while running:
 
+    # Did the user click the window close button?
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-if __name__ == "__main__":
-    logger.info(f"Token value: {SOME_SECRET}")
+    # Fill the background with white
+    screen.fill((255, 255, 255))
 
-    r = requests.get('https://weather.talkpython.fm/api/weather/?city=Berlin&country=DE')
-    if r.status_code == 200:
-        data = r.json()
-        temperature = data["forecast"]["temp"]
-        logger.info(f'Weather in Berlin: {temperature}')
+    # Draw a solid blue circle in the center
+    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
+
+    # Flip the display
+    pygame.display.flip()
+
+# Done! Time to quit.
+pygame.quit()
