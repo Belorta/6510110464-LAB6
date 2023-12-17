@@ -10,8 +10,8 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7  # Choose a Python version that is available
-        architecture: x86  # Use x86 (32-bit) architecture
+        python-version: 3.8  # Choose a Python version that is available
+        architecture: x64  # Use x64 (64-bit) architecture
 
     - name: Install dependencies
       run: |
